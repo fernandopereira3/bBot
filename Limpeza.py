@@ -1,5 +1,3 @@
-#/home/source -name ".*" -exec rm -f '{}' \;
-#/home/source -name ".*" -exec rm -fd '{}' \;
 import subprocess
 import os
 import logging
