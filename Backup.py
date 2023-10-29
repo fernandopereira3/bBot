@@ -19,7 +19,7 @@ class Bkp():
                         bkp_rotina = ['rsync','-hadzPu', srDir[i], bkpDir] 
                         processo = subprocess.run(bkp_rotina) 
                 srDir.close()  
-                
+        
                 os.system('chmod -R 777 /home/bkp/')
                 umount = os.system('umount -l 10.14.180.4:/home/smb')
                 log.warning('Backup SMB Completo')
