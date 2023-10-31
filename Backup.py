@@ -1,43 +1,42 @@
 import subprocess
 import os
 import logging
+import boto3
+import rich
 
-FORMAT = '%(asctime)s %(message)s'
-logging.basicConfig(level='NOTSET', format=FORMAT, datefmt='[%d/%b - %H:%M]',filename='/scripts/backup.log',filemode='a',encoding='utf-8')
+# FORMAT = '%(asctime)s %(message)s'
+# logging.basicConfig(level='NOTSET', format=FORMAT, datefmt='[%d/%b - %H:%M]', filename='/scripts/backup.log',filemode='a', encoding='utf-8')
 log = logging.getLogger('rich')
 
-class Bkp():
-        def backupSMB():
-                # mount = os.system("mount -t nfs 10.14.180.4:/home/smb /home/source")
-                log.warning('Backup inicializado!')
-                with open('diretorios.txt', 'r') as srDir:
-                        srDir.readline()
-                # srcDir = ['/home/source/administrativo','/home/source/cimic','/home/source/comunicados','/home/source/cpd','/home/source/eat','/home/source/notes','/home/source/producao','/home/source/reintegracao','/home/source/seguranca']
-                bkpDir = '/home/bkp/smb/'
-                i = 0
-                for i in range(0,len(srDir)):
-                        bkp_rotina = ['rsync','-hadzPu', srDir[i], bkpDir] 
-                        processo = subprocess.run(bkp_rotina) 
-                srDir.close()  
+
+def bucket():
+    client = boto3.client(
+        service_name='s3',
+        aws_access_key_id='AKIAXI2SKEAFOQQB6NK3',
+        aws_secret_access_key='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',
+        region_name='us-west-2'
+    )
+
+
+class Bkp:
+
+    def backupSMB():
+        # mount = os.system("mount -t nfs 10.14.180.4:/home/smb /home/source")
+        log.warning('Backup inicializado!')
+        # with open('diretorios.txt', 'r') as source:
+        #     source.readline()
+        # srcDir = ['/home/source/administrativo','/home/source/cimic','/home/source/comunicados','/home/source/cpd','/home/source/eat','/home/source/notes','/home/source/producao','/home/source/reintegracao','/home/source/seguranca']
+        # bkpDir = '/home/bkp/smb/'
+        source = "/Users/fernando/Documents"
+        for (dirpath, dirnames, filenames) in os.walk(source):
+            for f in filenames:
+                f_path = os.path.join(dirpath, f)
+                f_size = os.path.getsize(f_path)
+                f_size_kb = f_size / 1024
         
-                os.system('chmod -R 777 /home/bkp/')
-                umount = os.system('umount -l 10.14.180.4:/home/smb')
-                log.warning('Backup SMB Completo')
+        if f_size_kb >= 2.000:
+            print(f_path)
 
-        def backupBIBLI():
-                mount = os.system("mount -t nfs 10.14.180.4:/home/bibliotecas /home/source")
-                log.warning('Backup BIBLIOTECAS inicializado!')
-                #/adm /aevp /chefia /cimic /cpd /cras /financas /inclusao /infra /judiciaria /peculio /pessoal /portaria /producao /rol /saude /seguranca /supervisao 
-                with open('diretorios.txt', 'r') as srDir:
-                        srDir.readline()
-
-                bkpDir = '/home/bkp/bibliotecas/'
-                i = 0
-                for i in range(0,len(srDir)):
-                        bkp_rotina = ['rsync','-hadzPu', srDir[i], bkpDir] 
-                        processo = subprocess.run(bkp_rotina) 
-
-                srDir.close()
-                os.system('chmod -R 777 /home/bkp/bibliotecas')
-                umount = os.system('umount -l 10.14.180.4:/home/bibliotecas')
-                log.warning('Backup BIBLIOTECAS Completo!')
+        # i = 0
+        # for i in range(0, len(source)):
+        #     bkp_rotina = ['rsync', '-hadzPu',b    

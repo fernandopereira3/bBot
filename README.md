@@ -1,5 +1,5 @@
-# INFORMATION THIS IS AN OLD VERSION AND THEREFORE NO LONGER USED
+# BACKUP BOT
 
-Bot for automating backups on an external server. It is important to modify the "mount" functionality in all classes.
-Under construction: Cleaning: initially, temporary files. Tasks for automatic use of the bot, without the need for the cron table.
+This bot was initially made for backup on a local backup server but I'm upgrading it to save on an AWS S3 bucket. 
 
+Not finished yet.
