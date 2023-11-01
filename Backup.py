@@ -12,7 +12,8 @@ import rich
 def bucket():
     client = boto3.client(
         service_name='s3',
-
+        aws_access_key_id='AKIAXI2SKEAFOQQB6NK3',
+        aws_secret_access_key='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',
         region_name='us-west-2'
     )
 
@@ -38,7 +39,7 @@ class Bkp:
 
         
         # umount = os.system("umount 10.0.0.140:/home/arquivos")
-
+        source.close()
         
         # i = 0
         # for i in range(0, len(source)):
