@@ -13,8 +13,7 @@ def bucket():
     client = boto3.client(
         ##########
         service_name='s3',
-        aws_access_key_id='AKIAXI2SKEAFOQQB6NK3',
-        aws_secret_access_key='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',
+        
         region_name='us-west-2'
     )
 
