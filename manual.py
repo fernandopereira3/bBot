@@ -6,3 +6,4 @@ from rich import print
 
 
 bkp = b.Bkp.backupSMB()
+print(bkp)
