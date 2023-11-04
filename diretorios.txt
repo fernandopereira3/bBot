@@ -1,2 +1,2 @@
 /Users/fernando/mount/arquivos
-/Users/fernando/Downloads
+/Volumes/fernando
